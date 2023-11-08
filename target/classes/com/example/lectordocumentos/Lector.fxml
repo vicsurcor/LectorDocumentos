@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lectordocumentos.LectorController">
+   <children>
+      <Button id="Boton_Cargar" layoutX="67.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#CargarArchivo" prefHeight="25.0" prefWidth="95.0" text="Cargar" />
+      <Button id="Boton_Escribir" fx:id="botonEscribir" disable="true" layoutX="67.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#EscribirArchivo" prefHeight="25.0" prefWidth="95.0" text="Escribir" />
+      <Button id="Boton_Sobreescribir" fx:id="botonSobreescribir" disable="true" layoutX="431.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Sobreescribir" />
+      <TextField id="DatosACargar" fx:id="textoACargar" layoutX="40.0" layoutY="56.0" />
+      <TextArea fx:id="areaSobreescribir" layoutX="378.0" layoutY="192.0" prefHeight="200.0" prefWidth="200.0" />
+      <TextArea fx:id="areaEscribir" editable="false" layoutX="14.0" layoutY="192.0" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
