@@ -21,7 +21,7 @@ public class LectorController {
     public TextArea areaSobreescribir;
     public String texto;
     public BufferedReader fEntrada;
-    public PrintWriter fSalida;
+    public BufferedWriter fSalida;
 
 
     public void CargarArchivo(MouseEvent mouseEvent){
@@ -67,9 +67,22 @@ public class LectorController {
             else {
                 File file = new File("C:\\Users\\alumTA\\Desktop/" + texto);
                 if (file.exists()) {
+                    try {
+                        StringBuilder lineas = new StringBuilder();
+                        areaEscribir.setText("Archivo Cargado");
+                        fEntrada = new BufferedReader(new FileReader(texto));
+                        String linea = fEntrada.readLine();
+                        while (linea != null) {
 
-                    areaEscribir.setText("Archivo Cargado");
-
+                            lineas.append(linea);
+                            linea = fEntrada.readLine();
+                        }
+                        fEntrada.close();
+                        areaEscribir.setText(lineas.toString());
+                    }catch (IOException e)
+                    {
+                        areaEscribir.setText(e.getMessage());
+                    }
                 }
                 else {
 
@@ -86,27 +99,52 @@ public class LectorController {
         botonEscribir.setDisable(false);
         botonSobreescribir.setDisable(false);
     }
+    public void EscribirArchivo(MouseEvent mouseEvent){
 
-    public void EscribirArchivo(MouseEvent mouseEvent)
-    {
-        areaEscribir.clear();
-        File file = new File(textoACargar.getText());
-        String escribir;
+
+        String contenido;
+
+
         try {
-            fSalida = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-            escribir = areaSobreescribir.getText();
-            if (escribir == null){
-                areaEscribir.setText("No hay texto que escribir");
+            fEntrada = new BufferedReader(new FileReader(texto));
+            contenido = fEntrada.readLine();
+            if (contenido != null) {
+                contenido += areaSobreescribir.getText();
+                fSalida = new BufferedWriter(new FileWriter(texto));
+                fSalida.write(contenido);
+                fSalida.close();
+                fEntrada.close();
+                areaEscribir.setText(contenido);
             }
             else {
-
-                fSalida.println(escribir);
+                SobreescribirArchivo(mouseEvent);
             }
-        } catch (IOException e) {
+        }catch (IOException e){
+
             areaEscribir.setText(e.getMessage());
+
         }
 
-        fSalida.close();
+    }
+    public void SobreescribirArchivo(MouseEvent mouseEvent) {
+
+        String contenido;
+
+
+        try {
+            fEntrada = new BufferedReader(new FileReader(texto));
+            contenido = areaSobreescribir.getText();
+            fSalida = new BufferedWriter(new FileWriter(texto));
+            fSalida.write(contenido);
+            fSalida.close();
+            fEntrada.close();
+            areaEscribir.setText(contenido);
+        }catch (IOException e){
+
+            areaEscribir.setText(e.getMessage());
+
+        }
+
     }
 
 }
